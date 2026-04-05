@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-# Use --break-system-packages to override distutils-installed packages
-RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
+# Force reinstall to override system-installed packages
+RUN pip install --no-cache-dir --break-system-packages --ignore-installed -r requirements.txt
 
 COPY . .
 
