@@ -3,10 +3,13 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Install system dependencies including libatlas for TensorFlow
-RUN apt-get update && apt-get install -y \
+RUN apt-get update --fix-missing && apt-get install -y \
     gcc \
+    g++ \
     curl \
     libatlas-base-dev \
+    python3-dev \
+    --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
