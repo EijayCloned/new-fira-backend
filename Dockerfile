@@ -18,7 +18,7 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 ENV PORT=8080
 
-EXPOSE $PORT
+EXPOSE 8080
 
 # Run with Gunicorn (production server)
 CMD ["gunicorn", "--bind", "0.0.0.0:${PORT:-8080}", "--workers", "1", "--timeout", "120", "--access-logfile", "-", "app:app"]
