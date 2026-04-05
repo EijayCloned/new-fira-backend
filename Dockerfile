@@ -1,17 +1,17 @@
-FROM python:3.10
+# Use official TensorFlow image with CPU support (has everything pre-built)
+FROM tensorflow/tensorflow:2.19.0
 
 WORKDIR /app
 
-# Install system dependencies for TensorFlow and build tools
+# Install only system dependencies not included in tensorflow image
 RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
     curl \
-    libatlas-base-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Pin pip version and use pre-built wheels to speed up installation
+RUN pip install --no-cache-dir --upgrade pip setuptools && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
