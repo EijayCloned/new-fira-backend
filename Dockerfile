@@ -9,9 +9,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-# Pin pip version and use pre-built wheels to speed up installation
-RUN pip install --no-cache-dir --upgrade pip setuptools && \
-    pip install --no-cache-dir -r requirements.txt
+# Use --break-system-packages to override distutils-installed packages
+RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 COPY . .
 
